@@ -3,15 +3,13 @@ class Ship {
     this.length = length;
     this.timesHit = 0;
     this.isHorizontal = false;
+    this.isSunk = false;
   }
 }
 
-Ship.prototype.isSunk = function () {
-  return this.length > this.timesHit ? false : true;
-};
-
 Ship.prototype.hit = function () {
   this.timesHit += 1;
+  if (this.length <= this.timesHit) this.isSunk = true;
 };
 
 Ship.prototype.changeDirection = function () {
@@ -27,14 +25,14 @@ Ship.prototype.place = function (board, x, y) {
   // Place the ship either horizontaly or vertically
   if (this.isHorizontal === false) {
     for (let i = 0; i < this.length; i++) {
-      if (board.field[i + y][x] === 'O') throw 'Ships cannot overlap';
-      board.field[i + y][x] = 'O';
+      if (board.field[i + y][x] != undefined) throw 'Ships cannot overlap';
+      board.field[i + y][x] = this;
     }
   }
   if (this.isHorizontal === true) {
     for (let i = 0; i < this.length; i++) {
-      if (board.field[y][x + i] === 'O') throw 'Ships cannot overlap';
-      board.field[y][x + i] = 'O';
+      if (board.field[y][x + i] != undefined) throw 'Ships cannot overlap';
+      board.field[y][x + i] = this;
     }
   }
   return board;

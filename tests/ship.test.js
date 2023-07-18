@@ -1,4 +1,5 @@
 const Ship = require('../src/ship');
+const Gameboard = require('../src/gameboard');
 
 test('Ship can be successfully created', () => {
   const exampleShip = new Ship(4);
@@ -8,11 +9,15 @@ test('Ship can be successfully created', () => {
 
 test('Determines if the ship is sunk', () => {
   const firstShip = new Ship(4);
-  firstShip.timesHit = 4;
-  expect(firstShip.isSunk()).toBe(true);
+  firstShip.hit();
+  firstShip.hit();
+  firstShip.hit();
+  firstShip.hit();
+  expect(firstShip.isSunk).toBe(true);
   const secondShip = new Ship(4);
-  secondShip.timesHit = 2;
-  expect(secondShip.isSunk()).toBe(false);
+  secondShip.hit();
+  secondShip.hit();
+  expect(secondShip.isSunk).toBe(false);
 });
 
 test('Ship can be hit', () => {
@@ -26,3 +31,17 @@ test('Ship can change direction', () => {
   exampleShip.changeDirection();
   expect(exampleShip.isHorizontal).toBe(true);
 });
+
+// Temporary test, it is here just to display the board
+
+// test('Ship can be placed on a gameboard', () => {
+//   const exampleShip = new Ship(3);
+//   exampleShip.changeDirection();
+//   let gameboard = new Gameboard();
+//   gameboard = exampleShip.place(gameboard, 3, 3);
+//   gameboard.recieveAttack(3, 3);
+//   gameboard.recieveAttack(3, 3);
+//   gameboard.recieveAttack(3, 3);
+//   gameboard.recieveAttack(3, 3);
+//   console.log(gameboard.field);
+// });
