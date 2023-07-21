@@ -1,5 +1,4 @@
 const Ship = require('../src/ship');
-const Gameboard = require('../src/gameboard');
 
 test('Ship can be successfully created', () => {
   const exampleShip = new Ship(4);
@@ -31,17 +30,3 @@ test('Ship can change direction', () => {
   exampleShip.changeDirection();
   expect(exampleShip.isHorizontal).toBe(true);
 });
-
-// Temporary test, it is here just to display the board
-
-// test('Ship can be placed on a gameboard', () => {
-//   const exampleShip = new Ship(3);
-//   exampleShip.changeDirection();
-//   let gameboard = new Gameboard();
-//   gameboard = exampleShip.place(gameboard, 3, 3);
-//   gameboard.recieveAttack(3, 3);
-//   gameboard.recieveAttack(3, 3);
-//   gameboard.recieveAttack(3, 3);
-//   gameboard.recieveAttack(3, 3);
-//   console.log(gameboard.field);
-// });

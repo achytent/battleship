@@ -35,6 +35,7 @@ Ship.prototype.place = function (board, x, y) {
       board.field[y][x + i] = this;
     }
   }
+  board.shipsOnField += 1;
   return board;
 };
 
