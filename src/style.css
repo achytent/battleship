@@ -2,7 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-weight: 600;
 }
 
@@ -29,7 +30,43 @@
 
 .gamefield > .cell {
   border: 1px black solid;
-  background-color: gray;
+  background-color: lightblue;
   width: 50px;
   height: 50px;
+}
+
+.modal {
+  background-color: rgb(99, 99, 240);
+  padding: 12em;
+  display: grid;
+  grid-template-rows: 3em 1fr;
+  border: 2px black solid;
+  border-radius: 2em;
+  color: white;
+}
+
+.modal > form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.modal input[type='submit'] {
+  border: 0px;
+  border-radius: 1em;
+  padding: 1em 3em;
+  background-color: white;
+}
+
+.modal input[type='text'] {
+  padding: 1em;
+  border: none;
+}
+
+.invisible {
+  display: none;
+}
+
+.visible {
+  position: absolute;
 }

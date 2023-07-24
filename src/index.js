@@ -2,14 +2,15 @@ import Player from './player.js';
 import Board from './gameboard.js';
 import './style.css';
 
-let currentMove = 0; // 0 for player, 1 for computer
-let gameover = false;
+const game = {
+  currentMove: 0, // 0 for player, 1 for computer
+  gameover: false,
+};
 
 const playerBoard = new Board();
 const computerBoard = new Board();
 
-//render
-
+// Render the gamefield
 function createLayout() {
   const main = document.querySelector('main');
 
@@ -34,20 +35,30 @@ function createLayout() {
   main.appendChild(computerField);
 }
 
-function nameModal() {
-  // Enter the player's name and proceed to the game
+// Enter the players name and proceed to the game
+function createModal() {
+  const modalWindow = document.querySelector('.modal');
+  modalWindow.classList.remove('invisible');
+  modalWindow.classList.add('visible');
+  const modalWindowForm = document.querySelector('.modal > form');
+  modalWindowForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const name = event.target['name'].value;
+    game.player = new Player(name);
+    modalWindow.classList.add('invisible');
+    modalWindow.classList.remove('visible');
+  });
 }
+
+createModal();
+createLayout();
 
 // Computer placing ships on the board
 
 // Player placing ships on the board
 
-nameModal();
-
-createLayout();
-
-while (!gameover) {
-  if (currentMove === 0) {
+while (!game.gameover) {
+  if (game.currentMove === 0) {
     /*
       Collect data about current move
     */
