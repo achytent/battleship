@@ -1,14 +1,23 @@
 import Player from './player.js';
 import Board from './gameboard.js';
 import './style.css';
+import Ship from './ship.js';
 
 const game = {
   currentMove: 0, // 0 for player, 1 for computer
   gameover: false,
 };
 
-const playerBoard = new Board();
-const computerBoard = new Board();
+// Ship cells : amout of ships on the field
+const shipsBundle = {
+  1: 2,
+  2: 1,
+  3: 1,
+  4: 1,
+};
+
+let playerBoard = new Board();
+let computerBoard = new Board();
 
 // Render the gamefield
 function createLayout() {
@@ -55,15 +64,33 @@ createLayout();
 
 // Computer placing ships on the board
 
+Object.keys(shipsBundle).forEach((shipType) => {
+  for (let i = 0; i < shipsBundle[shipType]; i++) {
+    const x = Math.floor(Math.random() * 10);
+    const y = Math.floor(Math.random() * 10);
+    const ship = new Ship(Number(shipType));
+    if (Math.random < 0.5) {
+      ship.changeDirection();
+    }
+
+    try {
+      computerBoard = ship.place(computerBoard, x, y);
+    } catch (error) {
+      i -= 1;
+    }
+  }
+});
+
 // Player placing ships on the board
 
-while (!game.gameover) {
-  if (game.currentMove === 0) {
-    /*
-      Collect data about current move
-    */
-    player.makeMove();
+// while (!game.gameover) {
+//   if (game.currentMove === 0) {
+//     /*
+//       Collect data about current move
+//     */
+//     player.makeMove();
+//     // Check for gameover, for sunk ships
+//   }
+// }
 
-    // Check for gameover, for sunk ships
-  }
-}
+
