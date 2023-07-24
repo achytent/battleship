@@ -8,21 +8,43 @@ let gameover = false;
 const playerBoard = new Board();
 const computerBoard = new Board();
 
-function createPlayer(name) {
-  const player = new Player(name);
-}
-
 //render
 
 function createLayout() {
   const main = document.querySelector('main');
+
+  const playerField = document.createElement('div');
+  playerField.classList.add('gamefield');
+  for (let i = 0; i < 100; i++) {
+    const cellDiv = document.createElement('div');
+    cellDiv.dataset.id = i;
+    cellDiv.classList.add('cell');
+    playerField.appendChild(cellDiv);
+  }
+  main.appendChild(playerField);
+
+  const computerField = document.createElement('div');
+  computerField.classList.add('gamefield');
+  for (let i = 0; i < 100; i++) {
+    const cellDiv = document.createElement('div');
+    cellDiv.dataset.id = 100 + i;
+    cellDiv.classList.add('cell');
+    computerField.appendChild(cellDiv);
+  }
+  main.appendChild(computerField);
 }
 
-function nameModal() {}
+function nameModal() {
+  // Enter the player's name and proceed to the game
+}
 
 // Computer placing ships on the board
 
 // Player placing ships on the board
+
+nameModal();
+
+createLayout();
 
 while (!gameover) {
   if (currentMove === 0) {
