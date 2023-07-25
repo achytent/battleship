@@ -25,23 +25,41 @@ function createLayout() {
 
   const playerField = document.createElement('div');
   playerField.classList.add('gamefield');
+  const playerNameDiv = document.createElement('div');
+  playerNameDiv.textContent = game.player.name;
+  playerField.appendChild(playerNameDiv);
+
+  const playerCellsGroup = document.createElement('div');
+
   for (let i = 0; i < 100; i++) {
     const cellDiv = document.createElement('div');
     cellDiv.dataset.id = i;
     cellDiv.classList.add('cell');
-    playerField.appendChild(cellDiv);
+    cellDiv.classList.add('player');
+    playerCellsGroup.appendChild(cellDiv);
   }
+  playerField.appendChild(playerCellsGroup);
   main.appendChild(playerField);
 
   const computerField = document.createElement('div');
   computerField.classList.add('gamefield');
+  const computerNameDiv = document.createElement('div');
+  computerNameDiv.textContent = 'Computer';
+  computerField.appendChild(computerNameDiv);
+
+  const computerCellsGroup = document.createElement('div');
+
   for (let i = 0; i < 100; i++) {
     const cellDiv = document.createElement('div');
     cellDiv.dataset.id = 100 + i;
     cellDiv.classList.add('cell');
-    computerField.appendChild(cellDiv);
+    cellDiv.classList.add('computer');
+    computerCellsGroup.appendChild(cellDiv);
   }
+  computerField.appendChild(computerCellsGroup);
   main.appendChild(computerField);
+
+  addListenerForAttacks();
 }
 
 // Enter the players name and proceed to the game
@@ -56,11 +74,11 @@ function createModal() {
     game.player = new Player(name);
     modalWindow.classList.add('invisible');
     modalWindow.classList.remove('visible');
+    createLayout();
   });
 }
 
 createModal();
-createLayout();
 
 // Computer placing ships on the board
 
@@ -83,14 +101,43 @@ Object.keys(shipsBundle).forEach((shipType) => {
 
 // Player placing ships on the board
 
-// while (!game.gameover) {
-//   if (game.currentMove === 0) {
-//     /*
-//       Collect data about current move
-//     */
-//     player.makeMove();
-//     // Check for gameover, for sunk ships
-//   }
-// }
+Object.keys(shipsBundle).forEach((shipType) => {
+  for (let i = 0; i < shipsBundle[shipType]; i++) {
+    const x = Math.floor(Math.random() * 10);
+    const y = Math.floor(Math.random() * 10);
+    const ship = new Ship(Number(shipType));
+    if (Math.random < 0.5) {
+      ship.changeDirection();
+    }
 
+    try {
+      playerBoard = ship.place(playerBoard, x, y);
+    } catch (error) {
+      i -= 1;
+    }
+  }
+});
 
+function addListenerForAttacks() {
+  const computerCells = document.querySelectorAll('.computer');
+  console.log(computerCells);
+  computerCells.forEach((cell) => {
+    cell.addEventListener('click', (event) => {
+      const id = event.target.dataset.id - 100;
+      const x = id % 10;
+      const y = Math.floor(id / 10);
+      const result = computerBoard.recieveAttack(x, y);
+      switch (result) {
+        case 'HIT':
+          event.target.textContent = 'X';
+          break;
+        case 'MISS':
+          event.target.textContent = '.';
+          break;
+        case 'SUNK':
+          alert('cannot attack sunk ship');
+          break;
+      }
+    });
+  });
+}

@@ -24,11 +24,14 @@
 .gamefield {
   width: 500px;
   height: 500px;
+}
+
+.gamefield > div {
   display: flex;
   flex-wrap: wrap;
 }
 
-.gamefield > .cell {
+.gamefield .cell {
   border: 1px black solid;
   background-color: lightblue;
   width: 50px;

@@ -16,15 +16,20 @@ Gameboard.prototype.recieveAttack = function (x, y) {
   const ship = this.field[y][x];
   if (ship === undefined) {
     this.field[y][x] === '0';
-    return;
+    return 'MISS';
   }
-  if (ship.isSunk === true) throw 'Can not attack sunk ship';
+  if (ship.isSunk === true) {
+    return 'SUNK';
+  }
 
   ship.hit();
   if (ship.isSunk === true) {
     this.shipsOnField -= 1;
   }
   this.checkField();
+  console.log(ship);
+
+  return 'HIT';
 };
 
 module.exports = Gameboard;
