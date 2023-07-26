@@ -8,26 +8,26 @@ class Gameboard {
 
 Gameboard.prototype.checkField = function () {
   if (this.shipsOnField === 0) {
-    // TODO gameover
+    alert('game over');
   }
 };
 
 Gameboard.prototype.recieveAttack = function (x, y) {
   const ship = this.field[y][x];
   if (ship === undefined) {
-    this.field[y][x] === '0';
+    this.field[y][x] = '0';
     return 'MISS';
   }
-  if (ship.isSunk === true) {
-    return 'SUNK';
+  if (ship === '0') {
+    return 'ERR';
   }
 
   ship.hit();
+  this.field[y][x] = '0';
   if (ship.isSunk === true) {
     this.shipsOnField -= 1;
   }
   this.checkField();
-  console.log(ship);
 
   return 'HIT';
 };

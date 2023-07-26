@@ -78,7 +78,48 @@ function createModal() {
   });
 }
 
-createModal();
+function addListenerForAttacks() {
+  const computerCells = document.querySelectorAll('.computer');
+  computerCells.forEach((cell) => {
+    cell.addEventListener('click', (event) => {
+      const id = event.target.dataset.id - 100;
+      const x = id % 10;
+      const y = Math.floor(id / 10);
+      const result = computerBoard.recieveAttack(x, y);
+      switch (result) {
+        case 'HIT':
+          event.target.textContent = 'X';
+          break;
+        case 'MISS':
+          event.target.textContent = '.';
+          break;
+        case 'SUNK':
+          alert('cannot attack sunk ship');
+          break;
+      }
+      hitBack();
+    });
+  });
+}
+
+function hitBack() {
+  const x = Math.floor(Math.random() * 10);
+  const y = Math.floor(Math.random() * 10);
+  const result = playerBoard.recieveAttack(x, y);
+
+  const hitCell = document.querySelector(`[data-id="${y * 10 + x}"]`);
+  switch (result) {
+    case 'HIT':
+      hitCell.textContent = 'X';
+      break;
+    case 'MISS':
+      hitCell.textContent = '.';
+      break;
+    case 'ERR':
+      hitBack();
+      break;
+  }
+}
 
 // Computer placing ships on the board
 
@@ -87,7 +128,7 @@ Object.keys(shipsBundle).forEach((shipType) => {
     const x = Math.floor(Math.random() * 10);
     const y = Math.floor(Math.random() * 10);
     const ship = new Ship(Number(shipType));
-    if (Math.random < 0.5) {
+    if (Math.random() < 0.5) {
       ship.changeDirection();
     }
 
@@ -118,26 +159,4 @@ Object.keys(shipsBundle).forEach((shipType) => {
   }
 });
 
-function addListenerForAttacks() {
-  const computerCells = document.querySelectorAll('.computer');
-  console.log(computerCells);
-  computerCells.forEach((cell) => {
-    cell.addEventListener('click', (event) => {
-      const id = event.target.dataset.id - 100;
-      const x = id % 10;
-      const y = Math.floor(id / 10);
-      const result = computerBoard.recieveAttack(x, y);
-      switch (result) {
-        case 'HIT':
-          event.target.textContent = 'X';
-          break;
-        case 'MISS':
-          event.target.textContent = '.';
-          break;
-        case 'SUNK':
-          alert('cannot attack sunk ship');
-          break;
-      }
-    });
-  });
-}
+createModal();
