@@ -88,10 +88,10 @@ function addListenerForAttacks() {
       const result = computerBoard.recieveAttack(x, y);
       switch (result) {
         case 'HIT':
-          event.target.textContent = 'X';
+          event.target.style.backgroundColor = 'red';
           break;
         case 'MISS':
-          event.target.textContent = '.';
+          event.target.style.backgroundColor = 'lightgray';
           break;
         case 'SUNK':
           alert('cannot attack sunk ship');
@@ -110,10 +110,10 @@ function hitBack() {
   const hitCell = document.querySelector(`[data-id="${y * 10 + x}"]`);
   switch (result) {
     case 'HIT':
-      hitCell.textContent = 'X';
+      hitCell.style.backgroundColor = 'red';
       break;
     case 'MISS':
-      hitCell.textContent = '.';
+      hitCell.style.backgroundColor = 'lightgray';
       break;
     case 'ERR':
       hitBack();
