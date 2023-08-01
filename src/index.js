@@ -16,8 +16,8 @@ const shipsBundle = {
   4: 1,
 };
 
-let playerBoard = new Board();
-let computerBoard = new Board();
+let playerBoard = new Board('Computer');
+let computerBoard = new Board('Player');
 
 // Render the gamefield
 function createLayout() {
@@ -72,6 +72,7 @@ function createModal() {
     event.preventDefault();
     const name = event.target['name'].value;
     game.player = new Player(name);
+    computerBoard.oponent = name;
     modalWindow.classList.add('invisible');
     modalWindow.classList.remove('visible');
     createLayout();

@@ -1,14 +1,15 @@
 class Gameboard {
-  constructor() {
+  constructor(oponent) {
     this.field = [];
     this.shipsOnField = 0;
+    this.oponent = oponent;
     for (let i = 0; i < 10; i++) this.field[i] = new Array(10);
   }
 }
 
 Gameboard.prototype.checkField = function () {
   if (this.shipsOnField === 0) {
-    alert('game over');
+    alert(`${this.oponent} wins!`);
   }
 };
 
