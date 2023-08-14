@@ -77,15 +77,14 @@
   position: absolute;
   animation-name: animatetop;
   animation-duration: 0.4s;
+  animation-timing-function: ease;
 }
 
 @keyframes animatetop {
   from {
-    top: -300px;
-    opacity: 0;
+    transform: translate(0, -500%);
   }
   to {
-    top: 0;
-    opacity: 1;
+    transform: translate(0);
   }
 }
